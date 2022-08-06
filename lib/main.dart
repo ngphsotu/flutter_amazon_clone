@@ -1,5 +1,5 @@
-import 'package:amazon_clone/screens/sign_in_screen.dart';
-import 'package:amazon_clone/utils/color_themes.dart';
+import '/utils/color_themes.dart';
+import '/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
