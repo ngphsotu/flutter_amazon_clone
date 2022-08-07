@@ -88,6 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               controller: nameController,
                               obscureText: false, // hint text
                             ),
+
                             // Field
                             TextFieldWidget(
                               title: 'Address',
@@ -129,6 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   setState(() {
                                     isLoading = true;
                                   });
+
                                   String output =
                                       await authenticationMethods.signUpUser(
                                     name: nameController.text,
@@ -136,9 +138,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     email: emailController.text,
                                     password: passwordController.text,
                                   );
+
                                   setState(() {
                                     isLoading = false;
                                   });
+
                                   if (output == "success") {
                                     Navigator.pushReplacement(
                                       context,

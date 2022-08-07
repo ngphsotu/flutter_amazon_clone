@@ -103,14 +103,17 @@ class _SignInScreenState extends State<SignInScreen> {
                               setState(() {
                                 isLoading = true;
                               });
+
                               String output =
                                   await authenticationMethods.signInUser(
                                 email: emailController.text,
                                 password: passwordController.text,
                               );
+
                               setState(() {
                                 isLoading = false;
                               });
+
                               if (output == 'success') {
                                 //funcitons
                               } else {

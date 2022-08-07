@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '/utils/color_themes.dart';
+import 'layout/screen_layout.dart';
 import '/screens/sign_in_screen.dart';
 
 void main() async {
@@ -32,7 +33,8 @@ class AmazonClone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Amazon Clone",
+      debugShowCheckedModeBanner: false,
+      title: 'Amazon Clone',
       theme:
           ThemeData.light().copyWith(scaffoldBackgroundColor: backgroundColor),
       home: StreamBuilder(
@@ -45,13 +47,13 @@ class AmazonClone extends StatelessWidget {
               ),
             );
           } else if (user.hasData) {
-            return const Text('signed in');
+            //return const Text('signed in');
+            return const ScreenLayout();
           } else {
             return const SignInScreen();
           }
         },
       ),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
