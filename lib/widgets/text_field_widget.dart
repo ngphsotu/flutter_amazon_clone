@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatefulWidget {
   //
-  final String title;
+  final String title, hintText;
   final TextEditingController controller;
-  final String hintText;
   final bool obscureText;
 
   const TextFieldWidget({
     Key? key,
     required this.title,
+    required this.hintText,
     required this.controller,
     required this.obscureText,
-    required this.hintText,
   }) : super(key: key);
 
   @override
@@ -21,8 +20,8 @@ class TextFieldWidget extends StatefulWidget {
 
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   //
-  late FocusNode focusNode;
   bool isInFocus = false;
+  late FocusNode focusNode;
 
   @override
   void initState() {
@@ -72,13 +71,14 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             ],
           ),
           child: TextField(
-            focusNode: focusNode,
-            obscureText: widget.obscureText,
             maxLines: 1,
+            focusNode: focusNode,
+            controller: widget.controller,
+            obscureText: widget.obscureText,
             decoration: InputDecoration(
-              fillColor: Colors.white,
               filled: true,
               hintText: widget.hintText,
+              fillColor: Colors.white,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(3),
                 borderSide: const BorderSide(color: Colors.grey, width: 1),

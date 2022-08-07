@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
+
 import '/utils/utils.dart';
 import '/utils/constants.dart';
 import '/utils/color_themes.dart';
-import 'package:flutter/material.dart';
-import '/widget/text_field_widget.dart';
-import '/widget/custom_main_button.dart';
+import '/screens/sign_up_screen.dart';
+import '/widgets/text_field_widget.dart';
+import '/widgets/custom_main_button.dart';
+import '/resources/authentication_methods.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -14,8 +17,11 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   //
+  bool isLoading = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  AuthenticationMethods authenticationMethods = AuthenticationMethods();
+
   @override
   void dispose() {
     super.dispose();
@@ -29,6 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
     Size screenSize = Utils().getScreenSize();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: SizedBox(
           width: screenSize.width,
@@ -40,10 +47,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.network(
-                    amazonLogo,
-                    height: screenSize.height * 0.10,
-                  ),
+                  // Logo
+                  Image.network(amazonLogo, height: screenSize.height * 0.10),
+
+                  //
                   Container(
                     width: screenSize.width * 0.8,
                     height: screenSize.height * 0.5,
@@ -56,29 +63,35 @@ class _SignInScreenState extends State<SignInScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Text - Sign in
                         const Text(
                           'Sign-In',
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 33),
                         ),
+
+                        // Field
                         TextFieldWidget(
                           title: 'Email',
-                          controller: emailController,
-                          obscureText: false,
                           hintText: 'Enter your email',
+                          controller: emailController,
+                          obscureText: false, // hint text
                         ),
+
+                        // Field
                         TextFieldWidget(
                           title: 'Password',
-                          controller: passwordController,
-                          obscureText: false,
                           hintText: 'Enter your password',
+                          controller: passwordController,
+                          obscureText: true, // hint text
                         ),
+
+                        // Sign in button
                         Align(
                           alignment: Alignment.center,
                           child: CustomMainButton(
-                            onPressed: () {},
-                            isLoading: false,
                             color: yellowColor,
+                            isLoading: isLoading,
                             child: const Text(
                               'Sign-In',
                               style: TextStyle(
@@ -86,18 +99,39 @@ class _SignInScreenState extends State<SignInScreen> {
                                 color: Colors.black,
                               ),
                             ),
+                            onPressed: () async {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              String output =
+                                  await authenticationMethods.signInUser(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                              setState(() {
+                                isLoading = false;
+                              });
+                              if (output == 'success') {
+                                //funcitons
+                              } else {
+                                // show error
+                                Utils().showSnackBar(
+                                  context: context,
+                                  content: output,
+                                );
+                              }
+                            },
                           ),
                         ),
                       ],
                     ),
                   ),
+
+                  // Line & Text
                   Row(
                     children: [
                       Expanded(
-                        child: Container(
-                          height: 1,
-                          color: Colors.grey,
-                        ),
+                        child: Container(height: 1, color: Colors.grey),
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -107,17 +141,15 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          height: 1,
-                          color: Colors.grey,
-                        ),
+                        child: Container(height: 1, color: Colors.grey),
                       ),
                     ],
                   ),
+
+                  // Cteate Button
                   CustomMainButton(
                     color: Colors.grey[400]!,
                     isLoading: false,
-                    onPressed: () {},
                     child: const Text(
                       'Create an Amazon Account',
                       style: TextStyle(
@@ -126,6 +158,16 @@ class _SignInScreenState extends State<SignInScreen> {
                         //fontSize: 12,
                       ),
                     ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const SignUpScreen();
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
