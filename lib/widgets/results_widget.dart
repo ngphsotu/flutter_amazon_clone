@@ -1,10 +1,10 @@
-import 'package:amazon_clone/utils/color_themes.dart';
-import 'package:amazon_clone/widgets/cost_widget.dart';
-import 'package:amazon_clone/widgets/rating_star_widget.dart';
 import 'package:flutter/material.dart';
 
 import '/utils/utils.dart';
+import '/utils/color_themes.dart';
 import '/model/product_model.dart';
+import '/widgets/cost_widget.dart';
+import '/widgets/rating_star_widget.dart';
 
 class ResultsWidget extends StatelessWidget {
   //

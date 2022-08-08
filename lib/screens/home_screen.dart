@@ -1,11 +1,11 @@
 // ignore_for_file: avoid_print
 
-import 'package:amazon_clone/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 import '/utils/constants.dart';
 import '/widgets/loading_widget.dart';
 import '/widgets/user_details_bar.dart';
+import '/widgets/search_bar_widget.dart';
 import '/resources/cloudfirestore_methods.dart';
 import '/widgets/products_showcase_list_view.dart';
 import '/widgets/categories_horizontal_list_view_bar.dart';
@@ -87,10 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     children: [
                       const SizedBox(height: kAppBarHeight / 2),
-
                       // CategoriesHorizontalListViewBar
                       const CategoriesHorizontalListViewBar(),
-
                       // ProductsShowcaseListView
                       ProductsShowcaseListView(
                           title: 'Upto 70% Off', children: discount70!),
@@ -103,7 +101,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-
                 // UserDetailsBar
                 UserDetailsBar(offset: offset),
               ],

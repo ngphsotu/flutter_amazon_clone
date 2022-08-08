@@ -47,7 +47,6 @@ class AmazonClone extends StatelessWidget {
               ),
             );
           } else if (user.hasData) {
-            //return const Text('signed in');
             return const ScreenLayout();
           } else {
             return const SignInScreen();
